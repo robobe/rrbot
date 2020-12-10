@@ -1,0 +1,19 @@
+<sdf xmlns:xacro="http://xacro">
+    <!-- color -->
+    <xacro:macro name="color" params="color_name">
+        <lighting>1</lighting>
+        <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/${color_name}</name>
+        </script>
+    </xacro:macro>
+
+    <!-- texture -->
+    <xacro:macro name="texture" params="model name">
+        <script>
+            <uri>model://${model}/materials/scripts</uri>
+            <uri>model://${model}/materials/textures</uri>
+            <name>${model}/${name}</name>
+        </script>
+    </xacro:macro>
+</sdf>

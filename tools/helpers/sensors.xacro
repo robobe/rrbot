@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<sdf xmlns:xacro="http://xacro">
+
+    <!-- IMU -->
+    <xacro:macro name="imu" params="name rate topic">
+        <sensor name="${name}" type="imu">
+            <always_on>true</always_on>
+            <update_rate>${rate}</update_rate>
+            <visualize>true</visualize>
+            <topic>${topic}</topic>
+        </sensor>
+    </xacro:macro>
+
+    <!-- camera -->
+    <xacro:macro name="camera" params="name rate width height fov">
+        <sensor type="camera" name="${name}">
+            <update_rate>${rate}</update_rate>
+            <visualize>1</visualize>
+            <!-- <pose>0.025 0 0 0 0 0</pose> -->
+            <camera name="head">
+                <horizontal_fov>${fov*PI/180}</horizontal_fov>
+                <image>
+                    <width>${width}</width>
+                    <height>${height}</height>
+                    <format>R8G8B8</format>
+                </image>
+                <clip>
+                    <near>0.02</near>
+                    <far>300</far>
+                </clip>
+                <noise>
+                    <type>gaussian</type>
+                    <mean>0.0</mean>
+                    <stddev>0.007</stddev>
+                </noise>
+            </camera>
+        </sensor>
+    </xacro:macro>
+</sdf>

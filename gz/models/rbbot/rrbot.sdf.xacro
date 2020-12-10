@@ -1,0 +1,82 @@
+<sdf version="1.7" xmlns:xacro="http://xacro">
+    <xacro:include uri="package://common.xacro" />
+    <xacro:include uri="package://sensors.xacro" />
+    <xacro:include uri="package://color.xacro" />
+    <!-- Constants for robot dimensions -->
+    <xacro:property name="PI" value="3.1415926535897931" />
+    <xacro:property name="mass" value="1" />
+    <xacro:property name="width" value="0.1" /> 
+    <xacro:property name="height1" value="2" /> 
+    <xacro:property name="height2" value="1" /> <!-- Link 2 -->
+    <xacro:property name="height3" value="1" /> <!-- Link 3 -->
+    <xacro:property name="camera_link" value="0.05" /> <!-- Size of square 'camera' box -->
+    <xacro:property name="axel_offset" value="0.05" /> <!-- Space btw top of beam and the each joint -->
+
+    <model name='rrbot'>
+        <pose>0 0 0 0 0 0</pose>
+        <link name="heavy_base">
+            <pose>0 0 0.05 0 0 0</pose>
+            <inertial>
+                <xacro:inertia_box m="100" x="1" y="1" z="0.1" />
+            </inertial>
+            <xacro:box_vc name="heavy_base" x="1" y="1" z="0.1" color="Black" />
+        </link>
+        <joint name="rrbot_to_heavy_base" type="fixed">
+            <parent>heavy_base</parent>
+            <child>link1</child>
+        </joint>
+        <link name="link1">
+            <pose relative_to="heavy_base">0 0 ${height1/2+0.05} 0 0 0</pose>
+            <inertial>
+                <xacro:inertia_box m="${mass}" x="${width}" y="${width}" z="${height1}" />
+            </inertial>
+            <xacro:box_vc name="link1" x="${width}" y="${width}" z="${height1}" color="Orange" />
+        </link>
+        <joint name="joint1" type="revolute">
+            <parent>link1</parent>
+            <child>link2</child>
+            <pose>0 0 ${height2/2 - axel_offset} 0 0 0</pose>
+            <axis>
+                <xyz>1 0 0</xyz>
+            </axis>
+        </joint>
+        <link name="link2">
+            <pose relative_to="link1">${width} 0 ${height2/2 - axel_offset} 0 0 0</pose>
+            <inertial>
+                <xacro:inertia_box m="${mass}" x="${width}" y="${width}" z="${height2}" />
+            </inertial>
+            <xacro:box_vc name="link2" x="${width}" y="${width}" z="${height2}" color="Black" />
+        </link>
+        <joint name="joint2" type="revolute">
+            <parent>link2</parent>
+            <child>link3</child>
+            <pose>0 0 ${height3/2 - axel_offset} 0 0 0</pose>
+            <axis>
+                <xyz>1 0 0</xyz>
+            </axis>
+        </joint>
+        <link name="link3">
+            <pose relative_to="link2">${width} 0 -${height3 - 2*axel_offset} 0 0 0</pose>
+            <inertial>
+                <xacro:inertia_box m="${mass}" x="${width}" y="${width}" z="${height3}" />
+            </inertial>
+            <xacro:box_vc name="link3" x="${width}" y="${width}" z="${height3}" color="Orange" />
+        </link>
+        <joint name="joint_camera" type="fixed">
+            <parent>link3</parent>
+            <child>camera_link</child>
+            <pose>0 0 0 0 0 0</pose>
+            <axis>
+                <xyz>1 0 0</xyz>
+            </axis>
+        </joint>
+        <link name="camera_link">
+            <pose relative_to="link3">${width/2+camera_link/2} 0 -${height3/2 - camera_link/2} 0 0 0</pose>
+            <inertial>
+                <xacro:inertia_box m="1e-5" x="${camera_link}" y="${camera_link}" z="${camera_link}" />
+            </inertial>
+            <xacro:box_vc name="link3" x="${camera_link}" y="${camera_link}" z="${camera_link}" color="Red" />
+            <xacro:camera name="camera1" rate="20" width="640" height="480" fov="50"/>
+        </link>
+    </model>
+</sdf>
