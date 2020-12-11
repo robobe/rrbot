@@ -38,6 +38,9 @@
             <pose>0 0 ${height2/2 - axel_offset} 0 0 0</pose>
             <axis>
                 <xyz>1 0 0</xyz>
+                <dynamics>
+                    <damping>0.5</damping>
+                  </dynamics>
             </axis>
         </joint>
         <link name="link2">
@@ -53,6 +56,9 @@
             <pose>0 0 ${height3/2 - axel_offset} 0 0 0</pose>
             <axis>
                 <xyz>1 0 0</xyz>
+                <dynamics>
+                    <damping>0.5</damping>
+                  </dynamics>
             </axis>
         </joint>
         <link name="link3">
@@ -78,5 +84,6 @@
             <xacro:box_vc name="link3" x="${camera_link}" y="${camera_link}" z="${camera_link}" color="Red" />
             <xacro:camera name="camera1" rate="20" width="640" height="480" fov="50"/>
         </link>
+        <plugin name="joint_control" filename="libJointForcePlugin.so"/>
     </model>
 </sdf>

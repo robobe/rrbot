@@ -88,6 +88,9 @@
             <pose>0 0 0.45 0 0 0</pose>
             <axis>
                 <xyz>1 0 0</xyz>
+                <dynamics>
+                    <damping>0.5</damping>
+                  </dynamics>
             </axis>
         </joint>
         <link name="link2">
@@ -128,6 +131,9 @@
             <pose>0 0 0.45 0 0 0</pose>
             <axis>
                 <xyz>1 0 0</xyz>
+                <dynamics>
+                    <damping>0.5</damping>
+                  </dynamics>
             </axis>
         </joint>
         <link name="link3">
@@ -224,5 +230,6 @@
                 </noise>
             </camera>
         </sensor></link>
+        <plugin name="joint_control" filename="libJointForcePlugin.so"/>
     </model>
 </sdf>
