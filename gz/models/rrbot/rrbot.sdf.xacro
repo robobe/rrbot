@@ -84,6 +84,7 @@
             <xacro:box_vc name="link3" x="${camera_link}" y="${camera_link}" z="${camera_link}" color="Red" />
             <xacro:camera name="camera1" rate="20" width="640" height="480" fov="50"/>
         </link>
-        <plugin name="joint_control" filename="libJointForcePlugin.so"/>
+        <!-- <plugin name="joint_control" filename="libJointForcePlugin.so"/> -->
+        <!-- <plugin name="joint_control" filename="libJointVelocityPlugin.so"/> -->
     </model>
 </sdf>
