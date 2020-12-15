@@ -230,6 +230,7 @@
                 </noise>
             </camera>
         </sensor></link>
-        <plugin name="joint_control" filename="libJointForcePlugin.so"/>
+        <!-- <plugin name="joint_control" filename="libJointForcePlugin.so"/> -->
+        <!-- <plugin name="joint_control" filename="libJointVelocityPlugin.so"/> -->
     </model>
 </sdf>
