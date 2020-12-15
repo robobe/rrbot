@@ -1,32 +1,31 @@
+import tkinter as Tk
 import logging
 import logging.config
 import codecs
 import json
 import os
-from controllers import main_ctl
+from controllers import main_ctl    # pylint: disable=import-error
 import asyncio
 import threading
 
 def main(event_loop):
     logger = logging.getLogger()
-    logger.info("This is an INFO message on the root logger.")
-    
-    c = main_ctl.Controller(event_loop)
-    c.run()
+    logger.info("load controller")
+    root = Tk.Tk()
+    c = main_ctl.Controller(root, event_loop)
+    root.title("Tkinter MVC example")
+    root.deiconify()
+    root.mainloop() 
 
 def start_background_loop(loop: asyncio.AbstractEventLoop) -> None:
     asyncio.set_event_loop(loop)
     loop.run_forever()
 
 if __name__ == "__main__":
-    # create an initial logger. It will only log to console and it will disabled
-    # when we read the logging configuration from the config file.
-    # This logger can be useful when we need early logging. E.g. we may want to log
-    # the location of the JSON file (e.g. if we get it from a CLI argument).
     logging.basicConfig(level="INFO")
     logger = logging.getLogger()
+    logger.info("Application start")
     
-    logger.info("This is the logger configured by `logging.basicConfig()`.")
     loop = asyncio.new_event_loop()
     t = threading.Thread(target=start_background_loop, args=(loop,), daemon=True)
     t.start()
@@ -37,6 +36,5 @@ if __name__ == "__main__":
     with codecs.open(config_file, "r", encoding="utf-8") as fd:
         config = json.load(fd)
 
-    # Set up proper logging. This one disables the previously configured loggers.
     logging.config.dictConfig(config["logging"])
     main(loop)
