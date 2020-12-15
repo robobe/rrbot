@@ -1,0 +1,39 @@
+{
+    "logging": {
+      "version": 1,
+      "disable_existing_loggers": true,
+      "formatters": {
+        "brief": {
+          "class": "logging.Formatter",
+          "datefmt": "%I:%M:%S",
+          "format": "%(levelname)-8s; %(name)-15s; %(message)s"
+        },
+        "single-line": {
+          "class": "logging_color_formatter.ColorFormatter",
+          "datefmt": "%I:%M:%S",
+          "format": "%(levelname)-8s; %(asctime)s; %(name)-15s; %(module)s:%(funcName)s;%(lineno)d: %(message)s"
+        }
+      },
+      "handlers": {
+        "console":{
+          "level": "DEBUG",
+          "class": "logging.StreamHandler",
+          "formatter": "single-line",
+          "stream" : "ext://sys.stdout"
+        },
+        "file_handler": {
+          "level": "INFO",
+          "class": "logging.handlers.WatchedFileHandler",
+          "formatter": "single-line",
+          "filename": "/tmp/file_handler.log",
+          "mode": "a",
+          "encoding": "utf-8"
+        }
+      },
+      "loggers": { },
+      "root": {
+        "handlers": ["console"],
+        "level": "DEBUG"
+      }
+    }
+  }
