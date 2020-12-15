@@ -2,17 +2,14 @@ class EventHook(object):
     def __init__(self):
         self.__handlers = []
 
-    def addHandler(self, handler):
+    def __iadd__(self, handler):
         self.__handlers.append(handler)
+        return self
 
-    def removeHandler(self, handler):
+    def __isub__(self, handler):
         self.__handlers.remove(handler)
-
+        return self
+        
     def fire(self, *args, **kwargs):
         for handler in self.__handlers:
             handler(*args, **kwargs)
-
-    def clearObjectHandlers(self, inObject):
-        for theHandler in self.__handlers:
-            if theHandler.im_self == inObject:
-                self.removeHandler(theHandler)
