@@ -1,1 +1,4 @@
 git+https://github.com/robobe/pygazebo.git
+logging-color-formatter
+numpy
+matplotlib

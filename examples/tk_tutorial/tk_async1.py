@@ -8,9 +8,9 @@ async def work():
     print("stop")
     return "work done"
 
-def asyncio_thread(event_loop):
-  print('The tasks of fetching multiple URLs begins')
-  event_loop.run_until_complete(work())
+# def asyncio_thread(event_loop):
+#   print('The tasks of fetching multiple URLs begins')
+#   event_loop.run_until_complete(work())
 
 def execute_tasks_in_a_new_thread(event_loop):
   """ Button-Event-Handler starting the asyncio part. """

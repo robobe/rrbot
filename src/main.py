@@ -4,11 +4,19 @@ import codecs
 import json
 import os
 from controllers import main_ctl
+import asyncio
+import threading
 
-def main():
+def main(event_loop):
     logger = logging.getLogger()
     logger.info("This is an INFO message on the root logger.")
     
+    c = main_ctl.Controller(event_loop)
+    c.run()
+
+def start_background_loop(loop: asyncio.AbstractEventLoop) -> None:
+    asyncio.set_event_loop(loop)
+    loop.run_forever()
 
 if __name__ == "__main__":
     # create an initial logger. It will only log to console and it will disabled
@@ -17,10 +25,12 @@ if __name__ == "__main__":
     # the location of the JSON file (e.g. if we get it from a CLI argument).
     logging.basicConfig(level="INFO")
     logger = logging.getLogger()
-    logger.info("This is the logger configured by `logging.basicConfig()`.")
-    c = main_ctl.Controller()
-    c.run()
     
+    logger.info("This is the logger configured by `logging.basicConfig()`.")
+    loop = asyncio.new_event_loop()
+    t = threading.Thread(target=start_background_loop, args=(loop,), daemon=True)
+    t.start()
+
     # Load the configuration.
     config_file = os.path.dirname(__file__)
     config_file = os.path.join(config_file, "log.json")
@@ -29,4 +39,4 @@ if __name__ == "__main__":
 
     # Set up proper logging. This one disables the previously configured loggers.
     logging.config.dictConfig(config["logging"])
-    main()
+    main(loop)
