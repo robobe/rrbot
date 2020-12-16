@@ -11,6 +11,8 @@ class View():
         self.frame = Tk.Frame(master)
         self.fig = Figure( figsize=(7.5, 4), dpi=80 )
         self.ax0 = self.fig.add_axes( (0.05, .05, .90, .90), facecolor=(.75,.75,.75), frameon=False)
+        self.line, = self.ax0.plot([], [], lw=3)
+
         self.frame.pack(side=Tk.LEFT, fill=Tk.BOTH, expand=1)
         self.sidepanel=SidePanel(master)
         self.canvas = FigureCanvasTkAgg(self.fig, master=self.frame)
