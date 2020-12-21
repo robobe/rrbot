@@ -6,3 +6,7 @@ install(TARGETS JointForcePlugin DESTINATION ${PROJECT_SOURCE_DIR}/bin)
 add_library(JointVelocityPlugin SHARED joint_velocity/joint_velocity.cpp)
 target_link_libraries(JointVelocityPlugin ${GAZEBO_LIBRARIES})
 install(TARGETS JointVelocityPlugin DESTINATION ${PROJECT_SOURCE_DIR}/bin)
+
+add_library(JointPositionPlugin SHARED joint_position/joint_position.cpp)
+target_link_libraries(JointPositionPlugin ${GAZEBO_LIBRARIES})
+install(TARGETS JointPositionPlugin DESTINATION ${PROJECT_SOURCE_DIR}/bin)

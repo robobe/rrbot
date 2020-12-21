@@ -106,6 +106,7 @@
             <izz>0.001666666666666667</izz>
         </inertia></inertial>
             
+            
         <collision name="link2_collision">
             
         <geometry>
@@ -124,7 +125,12 @@
             <box>
                 <size>0.1 0.1 1.0</size>
             </box>
-        </geometry></visual></link>
+        </geometry></visual><sensor name="link2_imu" type="imu">
+            <always_on>true</always_on>
+            <update_rate>30.0</update_rate>
+            <visualize>true</visualize>
+            <topic>/rrbot/link2/imu</topic>
+        </sensor></link>
         <joint name="joint2" type="revolute">
             <parent>link2</parent>
             <child>link3</child>
@@ -232,5 +238,6 @@
         </sensor></link>
         <!-- <plugin name="joint_control" filename="libJointForcePlugin.so"/> -->
         <!-- <plugin name="joint_control" filename="libJointVelocityPlugin.so"/> -->
+        <plugin name="joint_control" filename="libJointPositionPlugin.so"/>
     </model>
 </sdf>

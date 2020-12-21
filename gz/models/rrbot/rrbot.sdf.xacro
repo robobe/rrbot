@@ -49,6 +49,7 @@
                 <xacro:inertia_box m="${mass}" x="${width}" y="${width}" z="${height2}" />
             </inertial>
             <xacro:box_vc name="link2" x="${width}" y="${width}" z="${height2}" color="Black" />
+            <xacro:imu name="link2_imu" rate="30" topic="/rrbot/link2/imu"/>
         </link>
         <joint name="joint2" type="revolute">
             <parent>link2</parent>
@@ -86,5 +87,6 @@
         </link>
         <!-- <plugin name="joint_control" filename="libJointForcePlugin.so"/> -->
         <!-- <plugin name="joint_control" filename="libJointVelocityPlugin.so"/> -->
+        <plugin name="joint_control" filename="libJointPositionPlugin.so"/>
     </model>
 </sdf>

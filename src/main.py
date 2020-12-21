@@ -7,12 +7,14 @@ import os
 from controllers import main_ctl    # pylint: disable=import-error
 import asyncio
 import threading
+import di
 
 def main(event_loop):
     logger = logging.getLogger()
     logger.info("load controller")
     root = Tk.Tk()
-    c = main_ctl.Controller(root, event_loop)
+    # c = main_ctl.Controller(root, event_loop)
+    c = di.get_controller(event_loop, root)
     root.title("Tkinter MVC example")
     root.deiconify()
     root.mainloop() 

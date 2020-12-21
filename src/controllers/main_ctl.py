@@ -12,15 +12,16 @@ import numpy as np
 log = logging.getLogger(__name__)
 
 class Controller():
-    def __init__(self, tk, event_loop):
-        self.event_loop = event_loop
+    def __init__(self, tk, model):
+        # self.event_loop = event_loop
         
-        self.model = Model(event_loop)
+        # self.model = Model(event_loop)
+        self.model = model
         self.view = View(tk)
         self.view.sidepanel.plotBut.bind("<Button-1>",self.__cmd_plot)
         # self.model.on_data += self.__data_cb
         self.anim = FuncAnimation(self.view.fig, self.animate, init_func=self.init,
-                               frames=200, interval=20, blit=True)
+                               frames=200, interval=200, blit=True)
 
     def init(self):
         self.view.line.set_data([], [])
@@ -29,6 +30,7 @@ class Controller():
     def animate(self, i):
         x = np.linspace(0, 50, 50)
         y = list(self.model.get_data())
+        print(y)
         self.view.line.set_data(x, y)
         return self.view.line,
 

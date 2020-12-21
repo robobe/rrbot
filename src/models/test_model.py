@@ -8,6 +8,7 @@ from utils import Singleton # pylint: disable=import-error
 import pygazebo
 import threading
 from collections import deque  
+import random
 
 MAX_ITEMS = 50
 
@@ -18,16 +19,10 @@ class Model(metaclass=Singleton):
         self.event_loop = event_loop
         self.data = deque([0 for _ in range(50)], MAX_ITEMS)
 
-    # async def work(self):
-    #     print("start")
-    #     await asyncio.sleep(2)
-    #     print("stop")
-    #     return "work done"
-
-    # def got_result(self, future):
-    #     result = future.result()
-    #     self.on_data.fire(result)
+    
     def get_data(self):
+        x = random.randint(1, 10)
+        self.data.append(x)
         return list(self.data)
 
     def cb(self, data):
