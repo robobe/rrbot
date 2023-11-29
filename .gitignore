@@ -1,0 +1,7 @@
+eeprom.bin
+mav.tlog
+mav.tlog.raw
+**/mav.parm
+**/venv
+logs/
+**/build
