@@ -1,6 +1,7 @@
 <?xml version="1.0" ?>
 <sdf version="1.6">
   <model name='rrbot'>
+    <plugin name='set_joint_position_plugin' filename='libjoint_position_plugin.so'/>
     <joint name="weld" type="fixed">
         <parent>world</parent>
         <child>link1</child>
